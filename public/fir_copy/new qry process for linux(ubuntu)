@@ -1,0 +1,208 @@
+                             # Steps for set server password in linux #
+
+Step 1:  sudo passwd root (qry)
+
+         -> To set password for Linux server.
+
+Step 2: sudo apt update (qry)
+
+         -> This cmd is used to update the system.
+
+Step 3: git (qry)
+
+         -> This cmd is used to check the git is installed or not.
+
+
+Step 4: sudo apt-get install git (qry)
+
+        -> This cmd is used to install the git.
+
+Step 5: sudo apt install php (qry)
+
+        -> This cmd is used to install the php versions.
+
+Step 6: php -v (qry)
+
+        -> This cmd is used to check the php versions.
+
+                *If you want to install these packages follow the below  cmd*
+               (php-mbstring,php-xml,php-curl,php-gd,php-cli,php-soap,php-zip)
+
+Step 7: sudo apt install php-mbstring (qry)
+
+        -> This cmd is used to install php-mbstring.
+
+Step 8:  sudo apt install php-xml (qry)
+
+        -> This cmd is used to install php-xml.
+
+Step 9:  sudo apt install php-curl (qry)
+
+        -> This cmd is used to install php-curl.
+
+Step 10:  sudo apt install php-gd (qry)
+
+        -> This cmd is used to install php-gd.
+
+Step 11:  sudo apt install php-cli (qry)
+
+        -> This cmd is used to install php-cli.
+
+Step 12:  sudo apt install php-soap (qry)
+
+        -> This cmd is used to install php-soap.
+
+Step 13:  sudo apt install php-zip (qry)
+
+        -> This cmd is used to install php-zip.
+
+
+
+                         # Steps for installing php-mysql #
+
+Step 1: sudo apt install mysql-server (Qry)
+        
+        ->This qry is used to install mysql-server.
+
+Step 2: sudo mysql -u root -p   (Qry)
+
+        -> It is used to login into the mysql.  
+
+        -> Then it will ask pwd.
+
+        -> Enter the pwd and login.
+
+Step 3: SELECT user,authentication_string,plugin,host FROM mysql.user;   (Qry)
+
+        -> It is used to check the pwd is null or not.
+
+Step 4: ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456'; (Qry)
+       : FLUSH PRIVILEGES;   (Qry)
+        
+        -> It is used to reset the new pwd in the mysql.
+
+
+Step 5: sudo apt install vim (qry)
+
+        -> This cmd is used to install the vim like texteditor.
+
+Step 6: sudo apt install mysql-client libmysqlclient-dev (qry)
+
+        -> This cmd is used to install the mysql-client.
+
+Step 7: sudo service mysql restart (qry)
+
+        -> This cmd is used to restart the mysql.
+
+Step 8: php artisan migrate (qry)
+
+        -> This cmd is used to create a  tables in  database.
+
+
+Step 9: sudo apt install phpmyadmin php-mbstring php-gettext (qry)
+
+       -> This cmd is used to install phpmyadmin.
+
+
+           *if apache2 is installed accidentely to remove appache use this cmds*
+
+             
+steps : service apache2 status (Qry)
+
+       -> This cmd is used to check apache is installed or not if it is install follow the bellow cmd
+
+
+Steps : service apache2 stop
+
+        -> This cmd is used to remove the apache2 server.
+
+
+                         # Steps for installing Composer&vallet#
+
+Step 1: composer (qry)
+
+  -> This cmd is used to check the composer is installed or not. If it is not install please    	follow the bellow cmd
+
+Step 2:  sudo apt install composer (qry)
+
+   -> This cmd is used to install the composer.
+
+Step 3: ls -la (qry)
+
+    -> This cmd is used to see where the composer is installed.
+
+
+
+Step 4: echo $PATH
+        cat /etc/environment 
+
+Step 5:  composer global require cpriego/valet-linux (qry)
+
+     -> This cmd is used for installing a valet for linux(ubuntu) for global acess.
+
+
+
+
+Step 6: sudo cp /etc/environment /etc/environment.bk
+        sudo nano /etc/environment
+
+	Example Add path: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/sysnx/.config/composer/vendor/bin
+
+        source /etc/environment && export PATH
+
+        echo $PATH
+
+        composer or valet command - to verify the path settings
+        
+
+     -> These cmds are used for set path for a valet,vendor,composer with out using sudo cmd we can run these.
+
+
+
+Step 7: sudo apt-get install network-manager libnss3-tools jq xsel (qry)
+
+      -> This cmd is used to get network-manager access.
+
+Step 8: valet install (qry)
+
+      -> This cmd is used to install the valet.
+
+Step 9: 
+	mkdir myprojects	
+	cd myprojects/ (qry)  
+        valet park     (qry)
+
+      -> This cmd is used to install the valet park for a specific folder myprojects. Then we want to create a file like filename.test. Inside that file type a sample coding in HTML and save it.Then in the browser(firefox) type filename.test it will show the out put. 
+
+
+Step 10: sudo ln -s /usr/share/phpmyadmin/ /home/sysnx/myprojects/ (qry)
+
+       -> This cmd is used to set shortcut link for phpmyadmin 
+ 
+           /usr/share/phpmyadmin/  -> /home/sysnx/myprojects/
+              (source)                   (Destination) 
+
+       -> if we type phpmyadmin.test it will redirect to database(phpmyadmin).
+
+
+Step 14: composer global require laravel/installer (qry)
+
+       -> This cmd is used to install the laravel packages for a global access.
+
+Step 15: laravel new blog(file name) (qry)
+
+       -> This cmd is used to create a new project in laravel.
+
+
+Step 15: chmod 777  -R bootstrap/cache/ storage/ (qry)
+
+        -> This cmd is used to unlock the files in these (bootstrap/cache/ storage/) locations.
+      
+
+
+Step 23:  valet share blog/ (or) cd blog/           (qry)
+                                 valet share 
+
+         -> This cmd is used for, the user giving their project access for the other person. They can also see and run user's project.        
+
+
