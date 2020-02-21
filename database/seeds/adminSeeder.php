@@ -13,7 +13,7 @@ class adminSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['id' =>1, 'email' => "admin@gmail.com", 'password' => 123456,'user_type'=>"admin"]
+            ['id' =>1, 'email' => "admin@gmail.com", 'password' => 123456,'user_type'=>"0"]
            
            ];
            foreach ($data as $instence) {

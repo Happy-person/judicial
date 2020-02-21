@@ -40,6 +40,8 @@ Route::post('/solutions',"solutionController@store");
 Route::delete('/solutions/{id}',"solutionController@destroy");
 Route::get('/solutions/{id}',"solutionController@show");
 
+
+Route::get('userprofile','RegisterController@userdetails')->middleware('auth:api');
 Route::get('clientprofile','RegisterController@clientdetails')->middleware('auth:api');
 Route::get('lawyerprofile','RegisterController@lawyerdetails')->middleware('auth:api');
 
