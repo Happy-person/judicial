@@ -15,6 +15,8 @@ class Lawyer extends Migration
     {
         Schema::create('lawyer_profile', function (Blueprint $table) {
             $table->bigIncrements('lawyer_id');
+            $table->integer('user_id');
+            // $table->foreign('user_id')->references('id')->on('users');
             $table->string('age');
             $table->string('gender');
             $table->string('qualification');
@@ -27,6 +29,9 @@ class Lawyer extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softdeletes();
+    //         $table->foreign('user_id')
+    //   ->references('id')->on('users')
+    //   ->onDelete('cascade');
         });
     }
 

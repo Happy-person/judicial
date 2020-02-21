@@ -119,7 +119,28 @@ class RegisterController extends Controller
             $lawyer_certificates->move(public_path() . '/lawyer_certificates/', $certificate_name);
             $certificates = url('/') . '/lawyer_certificates/' . $certificate_name;
      
+       
+
+
+           $User = User::create([
+            'name'=> $formdata['name'],
+            'address'=> $formdata['address'],
+            'city'=> $formdata['city'],
+            'state'=> $formdata['state'],
+            'phone_no'=> $formdata['phone_no'],
+            'email'=> $formdata['email'],
+            'password'=>bcrypt($formdata['password']),
+            'otp'=> $formdata['otp'],
+            'user_type'=> 'lawyer',
+ 
+         ]);
+
+             $user_id = $User->id;
+             
+            // echo"<pre>"; print_r($user_id);exit;
+
            $Register = register::create([
+             'user_id' => $user_id,
             'age'=> $formdata['age'],
             'gender'=> $formdata['gender'],
             'qualification'=> $formdata['qualification'],
@@ -134,18 +155,7 @@ class RegisterController extends Controller
             ]
         );
             
-        $User = User::create([
-            'name'=> $formdata['name'],
-            'address'=> $formdata['address'],
-            'city'=> $formdata['city'],
-            'state'=> $formdata['state'],
-            'phone_no'=> $formdata['phone_no'],
-            'email'=> $formdata['email'],
-            'password'=>bcrypt($formdata['password']),
-            'otp'=> $formdata['otp'],
-            'user_type'=> 'lawyer',
- 
-         ]);
+       
 
          if($User){
             return response::json(array('status' => 1, 'message' => 'Successfully Created'), 200);
@@ -170,6 +180,63 @@ class RegisterController extends Controller
            
     return Response::json(['message'=>"stored successfully"]);  
         }
+        public function clientdetails()
+    {
         
+        $user = Auth::User();
+        $users= User::select('name','address','city','state','phone_no','email')->where('user_type', '=', 'client')->first(); 
+        $userArray = array();
+       {
+            //echo"<pre>";print_r($value);exit();
+          $userArray[] = [
+           
+            "name" => $users->name,
+            "address" => $users->address,
+            "city" => $users->city,
+            "state" => $users->state,
+            "phone_no" => $users->phone_no,
+            "email" => $users->email,
+           ];
+          ///echo"<pre>";print_r($userArray);exit();
+        }
+        return response::json(['error' => false, 'message' =>"success", "Result" => $userArray]);
+        
+        //echo"<pre>";print_r($user);exit();
+        return response()->json(['success' => $user]);
+    }
+    public function lawyerdetails()
+    {
+        
+        $user = Auth::User();
+        $users= register::select('name','address','city','state','phone_no', 'email','age','gender','qualification','working_status','firm_name','experience','enrollment_no','photo','certificates')->leftJoin('users','lawyer_profile.user_id','=','users.id')->where('user_type', '=', 'lawyer')->first(); 
+        $userArray = array();
+       {
+            //echo"<pre>";print_r($value);exit();
+          $userArray[] = [
+           
+            "name" => $users->name,
+            "address" => $users->address,
+            "city" => $users->city,
+            "state" => $users->state,
+            "phone_no" => $users->phone_no,
+            "email" => $users->email,
+            "age" => $users->age,
+            "gender" => $users->gender,
+            "qualification" => $users->qualification,  
+            "working_status" => $users->working_status,
+            "firm_name" => $users->firm_name,
+            "experience" => $users->experience,
+            "enrollment_no" => $users->enrollment_no,
+            "photo" => $users->photo,
+            "certificates" => $users->certificates,
+            
+          ];
+          ///echo"<pre>";print_r($userArray);exit();
+        }
+        return response::json(['error' => false, 'message' =>"success", "Result" => $userArray]);
+        
+        //echo"<pre>";print_r($user);exit();
+        return response()->json(['success' => $user]);
+    }
 
 }
