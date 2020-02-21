@@ -12,6 +12,30 @@ class RegisterController extends Controller
 {
     //
 
+    public function publicLogin(Request $request){
+        $formData = $request->all();
+        $email = $request->email;
+        $password = $request->password;
+        $usertype = $request->usertype;
+        $results = [];
+
+        if (Auth::attempt(['email'=>$email ,'password' => $password,'user_type'=>$usertype])) {
+
+            $publiclogin = Auth::User();
+            $token = $publiclogin->createToken('MyApp')->accessToken;
+            $results = array('email'=>$email,'pass'=>$token );
+        return response::json(array('status' => 1, 'message' => 'User LoggedIn successfully..', 'result' => $results), 200)->header('token', $token);
+
+
+        }else{
+
+            return response::json(array('status' => 0, 'message' => 'Invalid Username/Password', 'result' => $results), 200);
+
+        }
+
+
+    }
+
     public function lawyerLogin(Request $request){
         $formData = $request->all();
         $email = $request->email;
@@ -93,7 +117,7 @@ class RegisterController extends Controller
             'email'=> $formdata['email'],
             'password'=>bcrypt($formdata['password']),
             'otp'=> $formdata['otp'],
-            'user_type'=> 'client',
+            'user_type'=> $formdata['user_type'],
  
          ]);
 
@@ -131,7 +155,7 @@ class RegisterController extends Controller
             'email'=> $formdata['email'],
             'password'=>bcrypt($formdata['password']),
             'otp'=> $formdata['otp'],
-            'user_type'=> 'lawyer',
+            'user_type'=> $formdata['user_type'],
  
          ]);
 
@@ -173,7 +197,7 @@ class RegisterController extends Controller
             $User = User::create([
             'email'=> $formdata['email'],
             'password'=> bcrypt($formdata['password']),
-            'user_type'=>'admin',
+            'user_type'=>$formdata['user_type'],
     
             ]);
     
@@ -184,7 +208,7 @@ class RegisterController extends Controller
     {
         
         $user = Auth::User();
-        $users= User::select('name','address','city','state','phone_no','email')->where('user_type', '=', 'client')->first(); 
+        $users= User::select('name','address','city','state','phone_no','email')->where('user_type', '=', '2')->first(); 
         $userArray = array();
        {
             //echo"<pre>";print_r($value);exit();
@@ -208,7 +232,7 @@ class RegisterController extends Controller
     {
         
         $user = Auth::User();
-        $users= register::select('name','address','city','state','phone_no', 'email','age','gender','qualification','working_status','firm_name','experience','enrollment_no','photo','certificates')->leftJoin('users','lawyer_profile.user_id','=','users.id')->where('user_type', '=', 'lawyer')->first(); 
+        $users= register::select('name','address','city','state','phone_no', 'email','age','gender','qualification','working_status','firm_name','experience','enrollment_no','photo','certificates')->leftJoin('users','lawyer_profile.user_id','=','users.id')->where('user_type', '=', '1')->first(); 
         $userArray = array();
        {
             //echo"<pre>";print_r($value);exit();
